@@ -1,0 +1,8 @@
+{
+    "tasks": [
+        {"id": 1, "content": "Introduce React Native", "status": 1},
+        {"id": 2, "content": "Compare React JS and React Native", "status": 1},
+        {"id": 3, "content": "Introduce Expo", "status": 1},
+        {"id": 4, "content": "Build a basic todo app", "status": 0}
+    ]
+}

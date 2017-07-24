@@ -1,8 +1,21 @@
 {
     "tasks": [
         {"id": 1, "content": "Introduce React Native", "status": 1},
-        {"id": 2, "content": "Compare React JS and React Native", "status": 1},
+        {"id": 2, "content": "React JS vs React Native", "status": 1},
         {"id": 3, "content": "Introduce Expo", "status": 1},
-        {"id": 4, "content": "Build a basic todo app", "status": 0}
+        {"id": 4, "content": "Build a basic todo app", "status": 0},
+        {"id": 5, "content": "Introduce React Native", "status": 1},
+        {"id": 6, "content": "React JS vs React Native", "status": 1},
+        {"id": 7, "content": "Introduce Expo", "status": 1},
+        {"id": 8, "content": "Build a basic todo app", "status": 0},
+        {"id": 9, "content": "Introduce React Native", "status": 1},
+        {"id": 10, "content": "React JS vs React Native", "status": 1},
+        {"id": 11, "content": "Introduce Expo", "status": 1},
+        {"id": 12, "content": "Build a basic todo app", "status": 0},
+        {"id": 13, "content": "Build a basic todo app", "status": 0},
+        {"id": 14, "content": "Introduce React Native", "status": 1},
+        {"id": 15, "content": "React JS vs React Native", "status": 1},
+        {"id": 16, "content": "Introduce Expo", "status": 1},
+        {"id": 17, "content": "Build a basic todo app", "status": 0}
     ]
 }

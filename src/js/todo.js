@@ -6,9 +6,6 @@ import {
     View, 
     TouchableHighlight } from 'react-native';
 import Data from '../data/data.json';
-import {
-  MKCheckbox,
-} from 'react-native-material-kit';
 
 export default class Todo extends React.Component {
     constructor(props) {

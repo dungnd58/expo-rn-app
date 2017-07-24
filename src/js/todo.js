@@ -6,6 +6,7 @@ import {
     View, 
     TouchableHighlight } from 'react-native';
 import Data from '../data/data.json';
+import TodoCreate from './modal.js';
 
 export default class Todo extends React.Component {
     constructor(props) {
@@ -13,7 +14,8 @@ export default class Todo extends React.Component {
 
         this.state = {
             loading: true,
-            tasks: []
+            tasks: [],
+            showModal: false
         };
 
         this.getTasks = this.getTasks.bind(this);
@@ -36,8 +38,18 @@ export default class Todo extends React.Component {
         }
     }
 
-    create() {
-
+    create(text) {
+        var tasks = this.state.tasks;
+        tasks.push({
+            id="1",
+            content= text,
+            status= 0
+        });
+            
+        this.setState({
+            ...this.state,
+            tasks
+        });
     }
 
     update() {
@@ -58,10 +70,15 @@ export default class Todo extends React.Component {
             <View style={{flex: 1}}>
                 <View style={styles.todoButtonWrapper}>
                     <TouchableHighlight 
-                        onPress={ () => this.create }>
+                        onPress={ () => this.state.setState({showModal: true}) }>
                         <Text style={styles.button}>Add new</Text>
                     </TouchableHighlight>
                 </View>
+
+                <TodoCreate 
+                    onCreate= {this.create}
+                    showModal= {this.state.showModal}
+                />
 
                 <ScrollView contentContainerStyle={styles.todoContainer}>
                     { tasks && tasks.map(task =>

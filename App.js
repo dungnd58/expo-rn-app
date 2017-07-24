@@ -4,7 +4,7 @@ import Todo from './src/js/todo';
 
 export default class App extends React.Component {
   componentWillMount() {
-    console.log("Debuging");
+    
   }
   render() {
     return (

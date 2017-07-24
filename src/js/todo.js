@@ -4,7 +4,8 @@ import {
     Text, 
     ScrollView, 
     View, 
-    TouchableHighlight } from 'react-native';
+    TouchableHighlight 
+} from 'react-native';
 import Data from '../data/data.json';
 import TodoCreate from './modal.js';
 
@@ -13,14 +14,12 @@ export default class Todo extends React.Component {
         super(props);
 
         this.state = {
-            loading: true,
             tasks: [],
-            showModal: false
+            showTodoCreate: false
         };
 
         this.getTasks = this.getTasks.bind(this);
         this.create = this.create.bind(this);
-        this.changeStatus = this.changeStatus.bind(this);
     }
 
     componentWillMount() {
@@ -30,7 +29,6 @@ export default class Todo extends React.Component {
     getTasks() {
         if(Data) {
             this.setState({
-                loading: true,
                 tasks: Data.tasks
             })
         } else {
@@ -39,16 +37,18 @@ export default class Todo extends React.Component {
     }
 
     create(text) {
-        var tasks = this.state.tasks;
+        var {tasks, showTodoCreate} = this.state;
         tasks.push({
-            id="1",
-            content= text,
-            status= 0
+            id: tasks[tasks.length-1].id + 1,
+            content: text,
+            status: 0
         });
+        showTodoCreate = false;
             
         this.setState({
             ...this.state,
-            tasks
+            tasks,
+            showTodoCreate
         });
     }
 
@@ -65,27 +65,26 @@ export default class Todo extends React.Component {
     }
 
     render() {
-        const { loading, tasks } = this.state;
+        const { showTodoCreate, tasks } = this.state;
         return (
             <View style={{flex: 1}}>
                 <View style={styles.todoButtonWrapper}>
                     <TouchableHighlight 
-                        onPress={ () => this.state.setState({showModal: true}) }>
+                        onPress={ () => this.setState({showTodoCreate: true}) }>
                         <Text style={styles.button}>Add new</Text>
                     </TouchableHighlight>
                 </View>
 
-                <TodoCreate 
-                    onCreate= {this.create}
-                    showModal= {this.state.showModal}
-                />
+                {showTodoCreate ? 
+                    <TodoCreate
+                        onCreate= {this.create}
+                    /> : null }
 
                 <ScrollView contentContainerStyle={styles.todoContainer}>
                     { tasks && tasks.map(task =>
-                            <View key={task.id} style={styles.taskItem}>
-                                <Text style={[styles.contentStyle, styles.fontStyle]}>{task.id}. {task.content}</Text>
-                                
-                            </View>
+                        <View key={task.id} style={styles.taskItem}>
+                            <Text style={[styles.contentStyle, styles.fontStyle]}>{task.id}. {task.content}</Text>
+                        </View>
                         )
                     }
                 </ScrollView>

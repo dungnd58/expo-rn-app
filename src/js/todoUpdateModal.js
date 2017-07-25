@@ -8,7 +8,7 @@ import {
     TextInput
 } from 'react-native';
 
-export default class TodoCreate extends React.Component {
+export default class TodoUpdate extends React.Component {
     constructor(props) {
         super(props);
 
@@ -16,29 +16,37 @@ export default class TodoCreate extends React.Component {
             text: ''
         };
 
-        this.onCreate = this.onCreate.bind(this);
+        this.onUpdate = this.onUpdate.bind(this);
     }
 
-    onCreate() {
-        this.props.onCreate(this.state.text);
+    onUpdate() {
+        const {currentTask} = this.props;
+        var updatedTask = {
+            id: currentTask.id,
+            content: this.state.text,
+            status: currentTask.status
+        }
+        this.props.onUpdate(updatedTask);
     }
 
     render() {
+        const {currentTask} = this.props;
         return (
             <Modal
                 animationType={"slide"}
                 transparent={false}>
                 <View>
-                    <Text>Create new task</Text>
+                    <Text>Update task</Text>
 
                     <TextInput
                         style={[{height: 40, borderColor: 'gray', borderWidth: 1}, {borderColor: 'red'}]}
                         onChangeText={(input) => this.setState({text: input})}
+                        value={currentTask.content}
                     />
 
-                    <TouchableHighlight onPress={this.onCreate}
-                        style={styles.createButton}>
-                        <Text style={styles.fontStyle}>Create</Text>
+                    <TouchableHighlight onPress={this.onUpdate}
+                        style={styles.updateButton}>
+                        <Text style={styles.fontStyle}>Update</Text>
                     </TouchableHighlight>
                 </View>
             </Modal>
@@ -47,7 +55,7 @@ export default class TodoCreate extends React.Component {
 }
 
 const styles = StyleSheet.create({
-    createButton: {
+    updateButton: {
         padding: 10
     },
     fontStyle: {

@@ -8,6 +8,7 @@ import {
 } from 'react-native';
 import Data from '../data/data.json';
 import TodoCreate from './todoCreateModal.js';
+import TodoUpdate from './todoUpdateModal.js';
 
 export default class Todo extends React.Component {
     constructor(props) {
@@ -15,11 +16,14 @@ export default class Todo extends React.Component {
 
         this.state = {
             tasks: [],
-            showTodoCreate: false
+            showTodoCreate: false,
+            showTodoUpdate: false,
+            currentTask: null
         };
 
         this.getTasks = this.getTasks.bind(this);
         this.create = this.create.bind(this);
+        this.update = this.update.bind(this);
     }
 
     componentWillMount() {
@@ -52,8 +56,10 @@ export default class Todo extends React.Component {
         });
     }
 
-    update() {
+    update(updatedTask) {
+        var {tasks, showTodoUpdate} = this.state;
 
+        console.log(updatedTask);
     }
 
     delete() {
@@ -65,12 +71,15 @@ export default class Todo extends React.Component {
     }
 
     render() {
-        const { showTodoCreate, tasks } = this.state;
+        const { showTodoCreate, showTodoUpdate, tasks } = this.state;
         return (
             <View style={{flex: 1}}>
                 <View style={styles.todoButtonWrapper}>
                     <TouchableHighlight 
-                        onPress={ () => this.setState({showTodoCreate: true}) }>
+                        onPress={ () => this.setState({
+                            ...this.state,
+                            showTodoCreate: true}
+                        )}>
                         <Text style={styles.button}>Add new</Text>
                     </TouchableHighlight>
                 </View>
@@ -82,12 +91,24 @@ export default class Todo extends React.Component {
 
                 <ScrollView contentContainerStyle={styles.todoContainer}>
                     { tasks && tasks.map(task =>
-                        <View key={task.id} style={styles.taskItem}>
+                        <View key={task.id} style={styles.taskItem}
+                            onPress={ () => this.setState(
+                                {...this.state,
+                                showTodoUpdate: true,
+                                currentTask: task}
+                            )}>
                             <Text style={[styles.contentStyle, styles.fontStyle]}>{task.id}. {task.content}</Text>
                         </View>
                         )
                     }
                 </ScrollView>
+
+                {showTodoUpdate ?
+                    <TodoUpdate 
+                        onUpdate = {this.update}
+                        currentTask = {this.state.currentTask}
+                    /> : null }
+                }
             </View>
         );
     }

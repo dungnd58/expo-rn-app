@@ -7,7 +7,7 @@ import {
     TouchableHighlight 
 } from 'react-native';
 import Data from '../data/data.json';
-import TodoCreate from './modal.js';
+import TodoCreate from './todoCreateModal.js';
 
 export default class Todo extends React.Component {
     constructor(props) {
